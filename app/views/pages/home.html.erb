@@ -1,2 +1,30 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container-fluid" style="height: 100vh !important;">
+  <div class="row">
+    <div class="col-md-4 bg-primary">
+      <!-- Div qui prendra 30% de la page à droite -->
+      <div class="h-100">
+        <p>ici l'historique de mes réponses de ChatGPT avec la question de l'utilisateur et le nom du PDF ainsi que le nom du prompt qu'il aurait choisi</p>
+      </div>
+    </div>
+    <div class="col-md-8 bg-secondary">
+      <!-- Div qui prendra le reste à gauche -->
+      <div class="h-70">
+        <!-- Div qui prendra 70% de la hauteur -->
+        <%= render 'shared/response', content: @content %>
+      </div>
+      <div class="h-15 d-flex align-items-end">
+        <!-- Div qui prendra 15% de la hauteur et alignera les éléments en bas -->
+        <%= simple_form_for :prompt, url: { action: :submit_question }, method: :post, html: { class: "w-100" } do |f| %>
+          <div class="mb-2 d-flex">
+            <%= f.collection_select :prompt_content, @prompts, :content, :name, { prompt: { include_blank: "Choisir un prompt" } }, { class: "form-select me-2" } %>
+            <%= f.file_field :pdf_file, id: "pdfFile", class: "form-control" %>
+          </div>
+          <div class="mb-2 d-flex">
+            <%= f.text_area :user_question, id: "userQuestion", placeholder: "Poser une question", class: "form-control me-2", rows: 3 %>
+            <%= f.button :submit, "Envoyer", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

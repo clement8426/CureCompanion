@@ -1,5 +1,5 @@
-<div class="container-fluid" style="height: 100vh !important;">
-  <div class="row">
+<div class="container-fluid" style="height: 90vh;">
+  <div class="row h-100">
     <div class="col-md-4 bg-primary">
       <!-- Div qui prendra 30% de la page à droite -->
       <div class="h-100">
@@ -10,9 +10,11 @@
       <!-- Div qui prendra le reste à gauche -->
       <div class="h-70">
         <!-- Div qui prendra 70% de la hauteur -->
-        <%= render 'shared/response', content: @content %>
+        <div id="response_partial">
+          <%= render 'shared/response', content: @content, user_question: @user_question %>
+        </div>
       </div>
-      <div class="h-15 d-flex align-items-end">
+      <div class="h-15 d-flex flex-column align-items-end" style="position: absolute; bottom: 0;">
         <!-- Div qui prendra 15% de la hauteur et alignera les éléments en bas -->
         <%= simple_form_for :prompt, url: { action: :submit_question }, method: :post, html: { class: "w-100" } do |f| %>
           <div class="mb-2 d-flex">

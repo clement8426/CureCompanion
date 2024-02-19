@@ -51,7 +51,12 @@ class PagesController < ApplicationController
       puts "ChatGPT Response: #{@content}"
     end
 
-    render :home
+    respond_to do |format|
+      format.html { render :home }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace('response_partial', partial: 'shared/response', locals: { content: @content, user_question: user_question })
+      end
+    end
   end
 
   private
